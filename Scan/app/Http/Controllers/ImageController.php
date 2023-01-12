@@ -46,7 +46,7 @@ class ImageController extends Controller
             
             $file = $request->file('image');
             $extention = $file->getClientOriginalExtension();
-            $fileName = time().'-'. $extention;
+            $fileName = time().'.'. $extention;
             $file->move('imagesMotifs/'. $fileName);
             $image->image = $fileName;
         }
@@ -74,7 +74,10 @@ class ImageController extends Controller
      */
     public function edit($id)
     {
-        //
+        $image = Image::findOrFail($id);
+        return view('gestionImages.editImage', [
+          'image' =>  $image
+          ]);
     }
 
     /**
@@ -86,7 +89,20 @@ class ImageController extends Controller
      */
     public function update(StoreImage $request, $id)
     {
-        //
+        $image = Image::findOrFail($id);
+        $image->motif_id = $request->input('motif_id');
+        if($request->hasfile('image')){
+            
+            $file = $request->file('image');
+            $extention = $file->getClientOriginalExtension();
+            $fileName = time().'-'. $extention;
+            $file->move('imagesMotifs/'. $fileName);
+            $image->image = $fileName;
+        }
+
+        $image->save() ;
+        return redirect()->back()->with('message','image est modifier');
+        
     }
 
     /**
@@ -97,6 +113,14 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $image = Image::find($id)->delete();
+        if ($image){
+          $data=[
+          'message'=>'1',
+          'msg'=>'success'
+        ];
+        return redirect()->back()->with('message', 'le motif à été supprimé avec succés');
+       }
     }
 }

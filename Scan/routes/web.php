@@ -32,7 +32,8 @@ Route::get('/profile/editInfo', function () {
 
 //gestion motifs:
 route::resource('/gestionMotifs','MotifController');
-Route::get("/listMotifs",[App\Http\Controllers\ImageController::class,'index']);
+Route::get("/listMotifs",[App\Http\Controllers\MotifController::class,'index']);
+
 //gestion des images:
     route::resource('/gestionImages','ImageController');
     Route::get("/listImages",[App\Http\Controllers\ImageController::class,'index']);
