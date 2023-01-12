@@ -1,0 +1,8 @@
+Missing required parameter for [Route: gestionMotifs.edit] [URI: gestionMotifs/{gestionMotif}/edit]
+ [Missing parameter: gestionMotif].
+ (View: C:\xampp\htdocs\Scan\resources\views\gestionMotifs\listMotifs.blade.php)
+
+
+
+----->probleme :  <a  href="{{route('gestionMotifs.edit', ['gestionMotifs' => $motif->id])}}">
+ ---->solution :  <a  href="{{route('gestionMotifs.edit', ['gestionMotif' => $motif->id])}}">(supprimer le s)
